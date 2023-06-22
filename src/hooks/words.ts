@@ -4,7 +4,7 @@ import { IWordData } from '../models';
 import axios from './axios-config';
 
 
-export function useWords() {
+export function useWords(unit = 1, page = 1) {
   const [words, setWords] = useState<IWordData[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -15,6 +15,7 @@ export function useWords() {
       setLoading(true);
       const response = await axios.get(`/words?group=${group}&page=${page}`);
       setWords(response.data);
+      console.log(response.data)
       setLoading(false);
     } catch (e: unknown) {
       const error = e as AxiosError;
@@ -25,8 +26,8 @@ export function useWords() {
   }
   
   useEffect(() => {
-    fetchWords(1, 1);
+    fetchWords(unit, page);
   }, []);
 
-  return { loading, error, words };
+  return { loading, error, words, fetchWords };
 }

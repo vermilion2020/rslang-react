@@ -1,7 +1,7 @@
 import { Unit } from "./Unit";
 
 export function Units() {
-  const unitNames = [1, 2, 3, 4, 5, 6, 7];
+  const unitNames = [0, 1, 2, 3, 4, 5, 6];
   return (
     <div className="units">
       {
