@@ -3,11 +3,14 @@ import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 import { UnitState } from "./context/UnitContext.tsx";
+import { ModalState } from "./context/ModalContext.tsx";
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <BrowserRouter>
     <UnitState>
-      <App />
+      <ModalState>
+        <App />
+      </ModalState>
     </UnitState>
   </BrowserRouter>,
 )

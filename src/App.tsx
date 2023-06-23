@@ -10,11 +10,23 @@ import { Team } from './pages/team/Team';
 import { Stats } from './pages/Stats';
 import { Footer } from "./components/footer/Footer";
 import { NotFound } from "./pages/notFound/NotFound";
+import { ModalContext } from "./context/ModalContext";
+import { useContext } from "react";
+import { Modal } from "./components/modal/Modal";
+import { Registration } from "./components/modal/Registration";
+import { Auth } from "./components/modal/Auth";
 
 function App() {
+  const { modalReg, modalAuth, setModalReg, setModalAuth} = useContext(ModalContext);
   return (
     <>
       <Header />
+      { modalReg && <Modal onClose={() => setModalReg(false)}>
+        <Registration />
+      </Modal> }
+      { modalAuth && <Modal onClose={() => setModalAuth(false)}>
+        <Auth />
+      </Modal> }
       <Routes>
         <Route path="/" element={<Main />}></Route>
         <Route path="/textbook" element={<Textbook />}></Route>
