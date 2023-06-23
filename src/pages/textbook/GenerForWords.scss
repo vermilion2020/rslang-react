@@ -41,7 +41,7 @@
   padding-left: 15px;
   height: 40px;
   width: 125px;
-  background-image: url('../../../assets/icons/arrow-right.svg');
+  background-image: url('icons/arrow-right.svg');
   border: 1px solid $bgTColorBlack;
   background-color: $bgTColorWhite;
   background-size: 20px;
@@ -72,13 +72,13 @@
     cursor: pointer;
   }
   .paging__next {
-    background-image: url('../../../assets/icons/arrow-right.svg');
+    background-image: url('icons/arrow-right.svg');
     background-size: 20px;
     background-position: center;
     background-repeat: no-repeat;
   }
   .paging__prev {
-    background-image: url('../../../assets/icons/arrow-left.svg');
+    background-image: url('icons/arrow-left.svg');
     background-size: 20px;
     background-position: center;
     background-repeat: no-repeat;
@@ -91,7 +91,7 @@
   z-index: 1;
   width: 25px;
   height: 25px;
-  background-image: url('../../../assets/icons/icon-super.svg');
+  background-image: url('icons/icon-super.svg');
   background-size: 25px;
   background-repeat: no-repeat;
   top: -12px;
@@ -110,7 +110,7 @@
 
 .paging .button-pag.paging__next:hover {
   background-color: $colorBtnHov;
-  background-image: url('../../../assets/icons/arrow-right.svg');
+  background-image: url('icons/arrow-right.svg');
   border: 1px solid $bgTColorBlack;
   background-size: 20px;
   background-position: center;
@@ -119,7 +119,7 @@
 
 .paging .button-pag.paging__prev:hover {
   background-color: $colorBtnHov;
-  background-image: url('../../../assets/icons/arrow-left.svg');
+  background-image: url('icons/arrow-left.svg');
   border: 1px solid $bgTColorBlack;
   background-size: 20px;
   background-position: center;
@@ -130,7 +130,7 @@
   position: absolute;
   width: 20px;
   height: 20px;
-  background-image: url('../../../assets/icons/icon-dif-btn.svg');
+  background-image: url('icons/icon-dif-btn.svg');
   background-repeat: no-repeat;
   background-position: center;
   top: -6px;
@@ -243,7 +243,7 @@
     border: 1px solid $bgTColorBlack;
     color: $bgTColorBlack;
     .lable-btn {
-      background-image: url('../../../assets/icons/icon-dif.svg');
+      background-image: url('icons/icon-dif.svg');
     }
   }
 }
@@ -297,7 +297,7 @@ button[data-unit="7"] {
     outline: 1px solid $bgTColorBlack;
     color: $bgTColorBlack;
     .lable-btn {
-      background-image: url('../../../assets/icons/icon-dif.svg');
+      background-image: url('icons/icon-dif.svg');
     }
   }
 }
@@ -348,7 +348,7 @@ button[data-unit="7"]:disabled {
   position: relative;
   margin-top: 5rem;
   .icon-bg-sprint {
-    background-image: url('../../../assets/icons/star-sprint.svg');
+    background-image: url('icons/star-sprint.svg');
     position: absolute;
     width: 90%;
     height: 90%;
@@ -363,7 +363,7 @@ button[data-unit="7"]:disabled {
 .wrapper-audio {
   position: relative;
   .icon-bg-audio {
-    background-image: url('../../../assets/icons/line-audio.svg');
+    background-image: url('icons/line-audio.svg');
     position: absolute;
     width: 140%;
     height: 170%;
@@ -375,7 +375,7 @@ button[data-unit="7"]:disabled {
   }
 
   .icon-star-audio {
-    background-image: url('../../../assets/icons/star4-audio.svg');
+    background-image: url('icons/star4-audio.svg');
     position: absolute;
     width: 21%;
     height: 21%;
@@ -392,7 +392,7 @@ button[data-unit="7"]:disabled {
   z-index: 1;
   background-color: $bgTColorWhite;
   border: 1px solid $bgTColorBlack;
-  background-image: url('../../../assets/icons/arrow-right.svg');
+  background-image: url('icons/arrow-right.svg');
   background-size: 30px;
   background-repeat: no-repeat;
 
@@ -431,7 +431,7 @@ button[data-unit="7"]:disabled {
   justify-content: space-between;
   align-items: center;
   .btn-top {
-    background-image: url('../../../assets/icons/arrow-top.svg');
+    background-image: url('icons/arrow-top.svg');
     background-color: $bgTColorWhite;
     width: 50px;
     height: 50px;

@@ -5,7 +5,7 @@ export function Footer() {
   return (
     <footer id="footer-container" className="footer-container">
     <p className="copyright">
-        2022 
+        2023
     </p>
     <div className="github-link--wrapper">
       <Link className="github-link" to="https://github.com/halina-k" title="Halina Kulakova" target="_blank">

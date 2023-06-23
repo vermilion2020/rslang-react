@@ -1,10 +1,11 @@
 import { AxiosError } from  'axios';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { IWordData } from '../models';
 import axios from './axios-config';
+import { UnitContext } from '../context/UnitContext';
 
-
-export function useWords(unit = 1, page = 1) {
+export function useWords() {
+  const { unit, page } = useContext(UnitContext);
   const [words, setWords] = useState<IWordData[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -14,8 +15,11 @@ export function useWords(unit = 1, page = 1) {
       setError('');
       setLoading(true);
       const response = await axios.get(`/words?group=${group}&page=${page}`);
-      setWords(response.data);
-      console.log(response.data)
+      if (response && response.data) {
+        setWords(response.data);
+      } else {
+        setError('Could not connect or receive data. Try later');
+      }
       setLoading(false);
     } catch (e: unknown) {
       const error = e as AxiosError;
@@ -27,7 +31,7 @@ export function useWords(unit = 1, page = 1) {
   
   useEffect(() => {
     fetchWords(unit, page);
-  }, []);
+  }, [unit, page]);
 
   return { loading, error, words, fetchWords };
 }
