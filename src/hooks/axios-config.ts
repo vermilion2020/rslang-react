@@ -1,6 +1,7 @@
 import axios, { AxiosError } from 'axios';
+import { API_BASE_URL } from '../config-data';
 
-axios.defaults.baseURL = 'https://react-rslang-be-f0zg.onrender.com';
+axios.defaults.baseURL = API_BASE_URL;
 
 axios.interceptors.request.use(
   (config) => config,
