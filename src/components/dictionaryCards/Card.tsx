@@ -69,8 +69,8 @@ export function Card({ wordData }: CardProps) {
         <div className="btn-audio-wrapper">
           <button className="btn-audio-diction" 
             data-audio={audio}
-            data-audioMeaning={audioMeaning}
-            data-audioExample={audioExample}
+            data-audio-eaning={audioMeaning}
+            data-audio-example={audioExample}
           >
             <div className="icon-audio-diction"> </div>
           </button>

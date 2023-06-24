@@ -4,12 +4,15 @@ import App from './App.tsx'
 import './index.css'
 import { UnitState } from "./context/UnitContext.tsx";
 import { ModalState } from "./context/ModalContext.tsx";
+import { AuthState } from "./context/AuthContext.tsx";
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <BrowserRouter>
     <UnitState>
       <ModalState>
-        <App />
+        <AuthState>
+          <App />
+        </AuthState>
       </ModalState>
     </UnitState>
   </BrowserRouter>,

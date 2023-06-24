@@ -40,6 +40,11 @@ body {
   overflow: hidden;
 }
 
+.error-message {
+  text-align: center;
+  color: $falseColorGames;
+}
+
 .main-container-games {
   min-height: calc(100vh - 65px);
 
@@ -95,11 +100,16 @@ body::-webkit-scrollbar-thumb {
   color: $bgTColorBlack;
 }
 
-
 .button:hover {
   background: $colorBtnHov;
   outline: 1px solid $bgTColorBlack;
   color: $bgTColorBlack;
+}
+
+.button:disabled,
+.button[disabled],
+.button[disabled]:hover {
+  background: $TextNotActive;
 }
 
 .notification {
