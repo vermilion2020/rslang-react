@@ -15,9 +15,10 @@ import { useContext } from "react";
 import { Modal } from "./components/modal/Modal";
 import { Registration } from "./components/modal/Registration";
 import { Auth } from "./components/modal/Auth";
+import { AuthContext } from "./context/AuthContext";
 
 function App() {
-  const { modalReg, modalAuth, setModalReg, setModalAuth} = useContext(ModalContext);
+  const { modalReg, modalAuth, setModalReg, setModalAuth } = useContext(ModalContext);
   return (
     <>
       <Header />

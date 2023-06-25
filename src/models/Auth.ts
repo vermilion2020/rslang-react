@@ -9,6 +9,11 @@ export interface AutenticationData {
   password: string;
 }
 
+export interface RefreshTokenResponse {
+  token: string;
+  refreshToken: string;
+}
+
 export interface SignInResponse {
   message: string;
   token: string;

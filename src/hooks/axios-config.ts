@@ -14,15 +14,8 @@ axios.interceptors.request.use(
   },
 );
 
-axios.interceptors.response.use(
-  (response) => response,
-  (error: AxiosError) => {
-    if (error.response?.status === 401) {
-      window.location.href = '/';
-    } else if (error.response?.status === 417) {
-      console.log('word is already in user words');
-    }
-  },
-);
+axios.interceptors.response.use(null, (error) => {
+  return Promise.reject(error);
+});
 
 export default axios;

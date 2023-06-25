@@ -15,5 +15,5 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         </AuthState>
       </ModalState>
     </UnitState>
-  </BrowserRouter>,
+  </BrowserRouter>
 )

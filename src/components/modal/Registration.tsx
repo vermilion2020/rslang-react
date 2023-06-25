@@ -3,12 +3,11 @@ import { ModalContext } from "../../context/ModalContext";
 import { useAuth } from "../../hooks/auth";
 import { ErrorMessage } from "../ErrorMessage";
 import { AuthContext } from "../../context/AuthContext";
+import { EMAIL_REGEXP, MIN_NAME_LENGTH, MIN_PASSWORD_LENGTH } from "../../config-data";
 
 export function Registration() {
-  const { setModalAuth, setModalReg, close } = useContext(ModalContext);
-  const { loggedIn } = useContext(AuthContext);
+  const { setModalAuth, setModalReg, error, setError } = useContext(ModalContext);
   const [name, setName] = useState('');
-  const [error, setError] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
@@ -18,9 +17,9 @@ export function Registration() {
     setModalAuth(true);
   }
 
-  const submitHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const submitHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (password.length < 8) {
+    if (password.length < MIN_PASSWORD_LENGTH) {
       setError('Legth of password confirmation should be more than 7 letters!');
       return;
     }
@@ -28,16 +27,13 @@ export function Registration() {
       setError('Password confirmation value should be equal to password value!');
       return;
     }
-    if (name.length < 3) {
+    if (name.length < MIN_NAME_LENGTH) {
       setError('Legth of the name should be more than 2 letters!');
     }
-    if (!/[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+/.test(email)) {
+    if (!EMAIL_REGEXP.test(email)) {
       setError('Email is not correct!');
     }
-    userRegistration(name, email, password, passwordConfirmation);
-    if (loggedIn) {
-      close();
-    }
+    await userRegistration(name, email, password);
   }
 
   const changeHandler = (event: ChangeEvent<HTMLInputElement>, field: string) => {
@@ -50,12 +46,6 @@ export function Registration() {
         setEmail(event.target.value);
         break;
       case 'password':
-        if (event.target.value.length < 8) {
-          setError('Legth of the password should be more than 7 letters!');
-        }
-        if (event.target.value !== passwordConfirmation) {
-          setError('Password confirmation value should be equal to password value!');
-        }
         setPassword(event.target.value);
         break;
       case 'passwordConfirmation':
@@ -66,13 +56,42 @@ export function Registration() {
   
   return (
     <>
-      <input className="popup__input" value={email} type="email" name="email" placeholder="Email" onChange={(e: ChangeEvent<HTMLInputElement>) => changeHandler(e, 'email')}/>
-      <input className="popup__input" value={name} type="text" name="name" placeholder="Имя" onChange={(e: ChangeEvent<HTMLInputElement>) => changeHandler(e, 'name')} />
-      <input className="popup__input" value={password} type="password" name="password" placeholder="Пароль" onChange={(e: ChangeEvent<HTMLInputElement>) => changeHandler(e, 'password')} />
-      <input className="popup__input" value={passwordConfirmation} type="password" name="password-confirm" placeholder="Повторно пароль" onChange={(e: ChangeEvent<HTMLInputElement>) => changeHandler(e, 'passwordConfirmation')} />
+      <input 
+        className="popup__input"
+        value={email}
+        type="email"
+        placeholder="Email"
+        onChange={(e: ChangeEvent<HTMLInputElement>) => changeHandler(e, 'email')}
+      />
+      <input
+        className="popup__input"
+        value={name}
+        type="text"
+        placeholder="Имя"
+        onChange={(e: ChangeEvent<HTMLInputElement>) => changeHandler(e, 'name')}
+      />
+      <input
+        className="popup__input"
+        value={password}
+        type="password"
+        placeholder="Пароль"
+        onChange={(e: ChangeEvent<HTMLInputElement>) => changeHandler(e, 'password')}
+      />
+      <input
+        className="popup__input"
+        value={passwordConfirmation}
+        type="password"
+        placeholder="Повторно пароль"
+        onChange={(e: ChangeEvent<HTMLInputElement>) => changeHandler(e, 'passwordConfirmation')}
+      />
       { error && <ErrorMessage error={error} /> }
       <div className="popup__buttons-auth">
-        <button type="submit" id="back-button" className="button button_light" onClick={handleRegBtnClick}>Вернуться</button>
+        <button
+          type="submit"
+          id="back-button"
+          className="button button_light"
+          onClick={handleRegBtnClick}
+        >Вернуться</button>
         <button
           type="submit"
           id="registration"
