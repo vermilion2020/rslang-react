@@ -4,8 +4,8 @@ import { Header } from './components/header/Header';
 import { Main } from './pages/main/Main';
 import { Textbook } from './pages/textbook/Textbook';
 import { Dictionary } from './pages/dictionary/Dictionary';
-import { Sprint } from './pages/Sprint';
-import { Audio } from './pages/Audio';
+import { Sprint } from './pages/sprint/Sprint';
+import { Audio } from './pages/audio/Audio';
 import { Team } from './pages/team/Team';
 import { Stats } from './pages/Stats';
 import { Footer } from "./components/footer/Footer";
@@ -15,7 +15,6 @@ import { useContext } from "react";
 import { Modal } from "./components/modal/Modal";
 import { Registration } from "./components/modal/Registration";
 import { Auth } from "./components/modal/Auth";
-import { AuthContext } from "./context/AuthContext";
 
 function App() {
   const { modalReg, modalAuth, setModalReg, setModalAuth } = useContext(ModalContext);
