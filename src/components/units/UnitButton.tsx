@@ -1,11 +1,13 @@
-import { Dispatch, SetStateAction } from "react";
+import { useContext } from "react";
+import { GameContext } from "../../context/GameContext";
 
 interface UnitButtonProps {
-  unit: number,
-  setUnit: Dispatch<SetStateAction<number>>
+  unit: number
 }
 
-export function UnitButton ({ unit, setUnit }: UnitButtonProps) {
+export function UnitButton ({ unit }: UnitButtonProps) {
+  const { setUnit } = useContext(GameContext);
+
   return (
     <button
       className={`select-unit unit-${unit}`}

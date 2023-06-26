@@ -1,26 +1,31 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import './Sprint.scss';
 import { UnitButton } from '../units/UnitButton';
+import { TimerNode } from './TimerNode';
+import './Sprint.scss';
+import { GameContext } from '../../context/GameContext';
 
 export function SprintSelectUnit () {
-  const [unit, setUnit] = useState(0);
   const units = [1, 2, 3, 4, 5, 6];
+  const { setUnit, unit } = useContext(GameContext);
+  const handleSetUnit = (unit: number) => {
+    setUnit(unit);
+  }
 
-  const containerClass = unit ? `sprint-container unit-${unit}-container` : 'sprint-container';
+
   return (
-    <div className={containerClass}>
-      <div className="start-sprint" data-id="${unitId || 1}">
+      <div className="start-sprint">
         <h2>Спринт</h2>
         <p>Правила игры:</p>
         <p>Выберите соответсвует ли перевод предложенному слову</p>
         <p>Используйте левую &#8592; и правую &#8594; стрелки  клавиатуры для выбора ответа</p>
         <p className="select-label">Выберите раздел:</p>
-        <div className="unit-select">
+        { !unit && <div className="unit-select">
           {
-            units.map(u => <UnitButton unit={u} key={u} setUnit={setUnit}/>)
+            units.map(u => <UnitButton unit={u} key={u}/>)
           }
-        </div>
+        </div> }
+        { !!unit && <TimerNode secondsTotal={3} /> }
       </div>
-    </div>
   );
 }
