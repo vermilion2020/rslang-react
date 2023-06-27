@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 import './AudioChallenge.scss';
 import { UnitButton } from '../units/UnitButton';
+import { GameContext } from '../../context/GameContext';
+import { UNITS } from '../../config-data';
 
 export function AudioSelectUnit () {
-  const [unit, setUnit] = useState(0);
-  const units = [1, 2, 3, 4, 5, 6];
+  const { unit } = useContext(GameContext);
 
   const containerClass = unit ? `main-page-audio unit-${unit}-container` : 'main-page-audio';
   return (
@@ -21,7 +22,7 @@ export function AudioSelectUnit () {
             <p className="select-unit-offer">Выберите раздел:</p>
             <div className="select-container">
               {
-                units.map(u => <UnitButton unit={u} key={u} setUnit={setUnit}/>)
+                UNITS.map(u => <UnitButton unit={u} key={u} />)
               }
             </div>
             <div className="block-btn__start">
