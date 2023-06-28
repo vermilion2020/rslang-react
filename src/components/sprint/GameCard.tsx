@@ -1,6 +1,8 @@
 import { useContext, useState } from "react";
 import { GameContext } from "../../context/GameContext";
 import { GameWordData } from "../../models";
+import { TimerNode } from "./TimerNode";
+import { API_BASE_URL, CORRECT_AUDIO, INCORRECT_AUDIO } from "../../config-data";
 
 interface GameCardProps {
   word: GameWordData
@@ -25,7 +27,8 @@ export function GameCard({ word }: GameCardProps) {
     successInRope,
     currentWordIndex,
     totalScore,
-    setTotalScore
+    setTotalScore,
+    audioRef
   } = useContext(GameContext);
   const [selected, setSelected] = useState(false);
   const [ score, setScore ] = useState(10);
@@ -34,6 +37,12 @@ export function GameCard({ word }: GameCardProps) {
 
   const handleChoice = (choice: boolean) => {
     setSelected(true);
+    const audio = audioRef as React.MutableRefObject<HTMLAudioElement>;
+    audio.current.src = result ?
+      `${API_BASE_URL}/${CORRECT_AUDIO}` :
+      `${API_BASE_URL}/${INCORRECT_AUDIO}`;
+    audio.current.play();
+
     const checkedWord = {
       wordId: word.id,
       word: word.word,
@@ -42,11 +51,12 @@ export function GameCard({ word }: GameCardProps) {
       audio: word.audio,
       result: choice === !!correct
     };
+
     if (choice === !!correct) {
       setResult(true);
       setSuccessInRope(successInRope + 1);
       setTotalScore(totalScore + score);
-      setScore(Math.ceil(successInRope / 3) * 10);
+      setScore(Math.ceil(successInRope / 3) * 10 || 10);
       if (successInRope > maxSuccess) {
         setMaxSuccess(successInRope);
       }
@@ -55,17 +65,19 @@ export function GameCard({ word }: GameCardProps) {
       setResult(false);
       setSuccessInRope(0);
     }
+    
     setCheckedWords([...checkedWords, checkedWord]);
     setCurrentWordIndex(currentWordIndex + 1);
+    setSelected(false);
   }
 
   const cardClassName = 
     selected && result ? 'background-true card-inner' :
-    selected && !result ?'background-false card-inner' : 'card-inner';
+    selected && !result ?'background-false card-inner' : 'start-sprint';
 
   return (
-    <div className={cardClassName} >
-      <p id="score">0</p>
+    <div className={cardClassName}>
+      <p id="score">{totalScore}</p>
       <p className="success-count">+<span id="success-count">{score}</span> очков за правильный ответ</p>
       <div className="point-multiplier">
         <div className="circle" data-value="1"></div>
@@ -76,9 +88,18 @@ export function GameCard({ word }: GameCardProps) {
       <h3 id="card-word" className="card-word">{word.word}</h3>
       <h4 id="card-translate" className="card-translate">{translate}</h4>
       <div className="decision">
-        <button className="decision_button decision_button__false" onClick={() => {handleChoice(false)}}>Неверно</button>
-        <button className="decision_button decision_button__true" onClick={() => {handleChoice(true)}}>Верно</button>
+        <button
+          className="decision_button decision_button__false"
+          onClick={() => {handleChoice(false)}}
+          disabled={selected}
+        >Неверно</button>
+        <button
+          className="decision_button decision_button__true"
+          onClick={() => {handleChoice(true)}}
+          disabled={selected}
+        >Верно</button>
       </div>
+      { <div className="margin-top-80"><TimerNode secondsTotal={20} /></div> }
     </div>
   );
 }

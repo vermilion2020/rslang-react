@@ -86,6 +86,10 @@ $unit-img-path: 'images/units/';
   align-items: center;
 }
 
+.decision_button:disabled {
+  background: $bgTColorGrey;
+}
+
 .decision_button__false {
   color: $falseColorGames;
   border: 2px solid $falseColorGames;

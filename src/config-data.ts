@@ -6,3 +6,5 @@ export const MIN_PASSWORD_LENGTH = 8;
 export const MIN_NAME_LENGTH = 3;
 export const EMAIL_REGEXP = /[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+/;
 export const UNITS = [1, 2, 3, 4, 5, 6];
+export const CORRECT_AUDIO = 'files/correct_sound.mp3';
+export const INCORRECT_AUDIO = 'files/incorrect_sound.mp3';

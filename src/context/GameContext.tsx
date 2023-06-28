@@ -1,6 +1,6 @@
-import { createContext, useState } from 'react';
+import { createContext, useRef, useState } from 'react';
 import { GamePhase } from '../models/Games';
-import { CheckedWord, GameWordData } from '../models';
+import { CheckedWord } from '../models';
 
 
 interface IGameContext {
@@ -10,8 +10,6 @@ interface IGameContext {
   setUnit: (phase: GamePhase) => void,
   currentWordIndex: number,
   setCurrentWordIndex: (currentWordIndex: number) => void,
-  currentWord: GameWordData,
-  setCurrentWord: (currentWord: GameWordData) => void,
   checkedWords: CheckedWord[],
   setCheckedWords: (checkedWords: CheckedWord[]) => void,
   successInRope: number,
@@ -20,6 +18,7 @@ interface IGameContext {
   setMaxSuccess: (maxSuccess: number) => void,
   totalScore: number,
   setTotalScore: (totalScore: number) => void,
+  audioRef: unknown
 }
 
 export const GameContext = createContext<IGameContext>({
@@ -29,8 +28,6 @@ export const GameContext = createContext<IGameContext>({
   setUnit: () => {/**/},
   currentWordIndex: 0,
   setCurrentWordIndex: () => {/**/},
-  currentWord: {} as GameWordData,
-  setCurrentWord: () => {/**/},
   checkedWords: [],
   setCheckedWords: () => {/**/},
   successInRope: 0,
@@ -39,6 +36,7 @@ export const GameContext = createContext<IGameContext>({
   setMaxSuccess: () => {/**/},
   totalScore: 0,
   setTotalScore: () => {/**/},
+  audioRef: () => {/**/}
 });
 
 export const GameState = ({ children }: { children: React.ReactNode }) => {
@@ -49,7 +47,7 @@ export const GameState = ({ children }: { children: React.ReactNode }) => {
   const [maxSuccess, setMaxSuccess] = useState(0);
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [totalScore, setTotalScore] = useState(0);
-  const [currentWord, setCurrentWord] = useState<GameWordData>({} as GameWordData);
+  const audioRef = useRef(null);
 
   return (
     <GameContext.Provider value={{
@@ -65,12 +63,12 @@ export const GameState = ({ children }: { children: React.ReactNode }) => {
         setMaxSuccess,
         currentWordIndex,
         setCurrentWordIndex,
-        currentWord,
-        setCurrentWord,
         totalScore,
-        setTotalScore
+        setTotalScore,
+        audioRef
       }}>
       { children }
+      <audio src="" ref={audioRef} controls id="audio" className="hidden"></audio>
     </GameContext.Provider>
   );
 }
