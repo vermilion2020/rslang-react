@@ -3,11 +3,11 @@ import { GameContext } from "../../context/GameContext";
 import { GamePhase } from "../../models/Games";
 
 interface TimerNodeProps {
-  secondsTotal: number
+  secondsTotal: number,
 }
 
 export function TimerNode({ secondsTotal }: TimerNodeProps) {
-  const { setPhase } = useContext(GameContext);
+  const { phase, setPhase } = useContext(GameContext);
   const [seconds, setSeconds] = useState(secondsTotal);
   const deg = (360 * seconds) / secondsTotal + 180;
   const diagramClass = seconds >= secondsTotal / 2 ?
@@ -18,7 +18,11 @@ export function TimerNode({ secondsTotal }: TimerNodeProps) {
     if (seconds > 0) {
       setSeconds(seconds - 1);  
     } else {
-      setPhase(GamePhase.play);
+      if (phase === GamePhase.selectUnit) {
+        setPhase(GamePhase.play);
+      } else if (phase === GamePhase.play) {
+        setPhase(GamePhase.results);
+      }
     }
   };
 

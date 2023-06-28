@@ -22,3 +22,17 @@ export interface IWordData {
   };
   used?: boolean;
 }
+
+export interface CheckedWord {
+  wordId: string;
+  word: string;
+  wordTranslate: string;
+  transcription: string;
+  audio: string;
+  result: boolean;
+  difficulty?: '' | 'hard' | 'easy';
+  vic?: number;
+  loss?: number;
+}
+
+export type GameWordData = IWordData & { translates: string[] };

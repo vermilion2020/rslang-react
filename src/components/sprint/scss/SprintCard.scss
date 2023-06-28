@@ -63,13 +63,11 @@ $unit-img-path: 'images/units/';
 }
 
 .background-true {
-  background: $trueBgColorGames !important;
-  transition: all 0.5s ease;
+  background: radial-gradient($trueBgColorGames 0%, #fff 100%) !important;
 }
 
 .background-false {
-  background: $falseBgColorGames !important;
-  transition: all 0.5s ease;
+  background: radial-gradient($falseBgColorGames 0%, #fff 100%) !important;
 }
 
 .arr {

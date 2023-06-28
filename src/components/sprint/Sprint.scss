@@ -21,6 +21,11 @@
   }
 }
 
+.card-inner {
+  border-radius: 2rem;
+  transition: all 0.5s ease;
+}
+
 .card-sprint,
 .start-sprint {
   width: 50vw;
@@ -32,6 +37,10 @@
   padding: 1rem;
   text-align: center;
   margin: 10vh auto 1rem;
+}
+
+.margin-top-80 {
+  margin-top: 80px;
 }
 
 @media screen and (max-width: 767px) {
