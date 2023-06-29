@@ -1,13 +1,15 @@
 import { createContext, useRef, useState } from 'react';
 import { GamePhase } from '../models/Games';
-import { CheckedWord } from '../models';
+import { CheckedWord, GameWordData } from '../models';
 
 
 interface IGameContext {
   phase: GamePhase,
   setPhase: (phase: GamePhase) => void,
   unit: number,
-  setUnit: (phase: GamePhase) => void,
+  setUnit: (unit: number) => void,
+  page: number,
+  setPage: (page: number) => void,
   currentWordIndex: number,
   setCurrentWordIndex: (currentWordIndex: number) => void,
   checkedWords: CheckedWord[],
@@ -18,6 +20,8 @@ interface IGameContext {
   setMaxSuccess: (maxSuccess: number) => void,
   totalScore: number,
   setTotalScore: (totalScore: number) => void,
+  gameWords: GameWordData[],
+  setGameWords: (gameWords: GameWordData[]) => void,
   audioRef: unknown
 }
 
@@ -26,6 +30,8 @@ export const GameContext = createContext<IGameContext>({
   setPhase: () => {/**/},
   unit: 0,
   setUnit: () => {/**/},
+  page: 0,
+  setPage: () => {/**/},
   currentWordIndex: 0,
   setCurrentWordIndex: () => {/**/},
   checkedWords: [],
@@ -36,17 +42,21 @@ export const GameContext = createContext<IGameContext>({
   setMaxSuccess: () => {/**/},
   totalScore: 0,
   setTotalScore: () => {/**/},
+  gameWords: [],
+  setGameWords: () => {/**/},
   audioRef: () => {/**/}
 });
 
 export const GameState = ({ children }: { children: React.ReactNode }) => {
   const [phase, setPhase] = useState(GamePhase.selectUnit);
   const [unit, setUnit] = useState(0);
+  const [page, setPage] = useState(0);
   const [checkedWords, setCheckedWords] = useState<CheckedWord[]>([]);
   const [successInRope, setSuccessInRope] = useState(0);
   const [maxSuccess, setMaxSuccess] = useState(0);
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [totalScore, setTotalScore] = useState(0);
+  const [gameWords, setGameWords] = useState<GameWordData[]>([]);
   const audioRef = useRef(null);
 
   return (
@@ -55,6 +65,8 @@ export const GameState = ({ children }: { children: React.ReactNode }) => {
         setPhase,
         unit,
         setUnit,
+        page,
+        setPage,
         checkedWords,
         setCheckedWords,
         successInRope,
@@ -65,6 +77,8 @@ export const GameState = ({ children }: { children: React.ReactNode }) => {
         setCurrentWordIndex,
         totalScore,
         setTotalScore,
+        gameWords,
+        setGameWords,
         audioRef
       }}>
       { children }

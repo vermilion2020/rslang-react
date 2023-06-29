@@ -35,12 +35,12 @@ export function GameResults() {
         <div className="result-scroll">
           <h3 className="heading-h3">Угадано слов: <span className="results-success">{successWords.length}</span></h3>
           <div className="success-words">
-            { successWords.map(w => <ResultLine word={w} key={w.wordId} />) }
+            { successWords.map((w, index) => <ResultLine word={w} key={`${w.word}_${index}`} />) }
           </div>
           <hr />
           <h3 className="heading-h3">Не угадано слов: <span className="results-fail">{failedWords.length}</span></h3>
           <div className="failed-words">
-            { failedWords.map(w => <ResultLine word={w} key={w.wordId} />) }
+            { failedWords.map((w, index) => <ResultLine word={w} key={`${w.word}_${index}`} />) }
           </div>
         </div>
         <hr />

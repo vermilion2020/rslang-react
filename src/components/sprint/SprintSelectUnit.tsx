@@ -1,12 +1,11 @@
 import { useContext } from 'react';
 import { UnitButton } from '../units/UnitButton';
-import { GameContext } from '../../context/GameContext';
 import { UNITS } from '../../config-data';
 import { TimerNode } from './TimerNode';
+import { GameContext } from '../../context/GameContext';
 
 export function SprintSelectUnit () {
   const { unit } = useContext(GameContext);
-
 
   return (
     <div className="start-sprint">
