@@ -4,13 +4,13 @@ import { GamePhase } from '../models';
 import axios from './axios-config';
 import { GameContext } from '../context/GameContext';
 
-export function useGameWords() {
+export function useGameWords(countWords=1) {
   const { currentWordIndex, setPhase, gameWords, setGameWords, unit, page } = useContext(GameContext);
   
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  async function fetchGameWords(group: number, page: number, count = 1) {
+  async function fetchGameWords(group: number, page: number, count = countWords) {
     try {
       setError('');
       setLoading(true);

@@ -1,7 +1,11 @@
-import { AudioSelectUnit } from "../../components/audio/AudioSelectUnit";
+import { GameState } from "../../context/GameContext";
+import { GameContainer } from "../../components/audio/GameContainer";
 
 export function Audio() {
+
   return (
-    <AudioSelectUnit></AudioSelectUnit>
+    <GameState>
+      <GameContainer />
+    </GameState>
   );
 }

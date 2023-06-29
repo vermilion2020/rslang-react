@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { UnitButton } from '../units/UnitButton';
-import { UNITS } from '../../config-data';
+import { SPRINT_START_TIME, UNITS } from '../../config-data';
 import { TimerNode } from './TimerNode';
 import { GameContext } from '../../context/GameContext';
 
@@ -19,7 +19,7 @@ export function SprintSelectUnit () {
           UNITS.map(u => <UnitButton unit={u} key={u}/>)
         }
       </div> }
-      { !!unit && <TimerNode secondsTotal={3} /> }
+      { !!unit && <TimerNode secondsTotal={SPRINT_START_TIME} /> }
     </div> 
   );
 }

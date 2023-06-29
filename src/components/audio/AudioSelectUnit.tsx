@@ -3,9 +3,13 @@ import './AudioChallenge.scss';
 import { UnitButton } from '../units/UnitButton';
 import { GameContext } from '../../context/GameContext';
 import { UNITS } from '../../config-data';
+import { GamePhase } from '../../models';
 
 export function AudioSelectUnit () {
-  const { unit } = useContext(GameContext);
+  const { unit, setPhase } = useContext(GameContext);
+  const handleStartGame = () => {
+    setPhase(GamePhase.play);
+  }
 
   const containerClass = unit ? `main-page-audio unit-${unit}-container` : 'main-page-audio';
   return (
@@ -29,6 +33,7 @@ export function AudioSelectUnit () {
             <button
               className="btn-start"
               disabled={!unit ? true : false}
+              onClick={handleStartGame}
             >Начать</button>
             </div>
           </div>

@@ -1,19 +1,20 @@
 import { useContext, useState } from "react";
 import { GameContext } from "../../context/GameContext";
 import { GameWordData } from "../../models";
-import { TimerNode } from "./TimerNode";
-import { API_BASE_URL, CORRECT_AUDIO, INCORRECT_AUDIO, SPRINT_GAME_TIME } from "../../config-data";
+import { API_BASE_URL, CORRECT_AUDIO, COUNT_AUDIO_OPTIONS, INCORRECT_AUDIO } from "../../config-data";
 import { useGameWords } from "../../hooks/gameWords";
+import { CrossBtn } from "./CrossBtn";
+import { TranslateOption } from "./TranslateOption";
 
 interface GameCardProps {
   word: GameWordData
 }
 
-function randomResult(word: GameWordData) {
-  const correct = Math.round(Math.random());
-  let translate = '';
-  translate = correct ? word.wordTranslate : word.translates[0];
-  return { correct, translate };
+function randomTranslates(word: GameWordData) {
+  const correct = Math.floor(Math.random() * COUNT_AUDIO_OPTIONS);
+  const translates = [...word.translates];
+  translates.splice(correct, 0, word.wordTranslate);
+  return { correct, translates };
 }
 
 export function GameCard({ word }: GameCardProps) {
@@ -33,7 +34,7 @@ export function GameCard({ word }: GameCardProps) {
   } = useContext(GameContext);
   const [score, setScore] = useState(10);
   const [result, setResult] = useState(false);
-  const { correct, translate } = randomResult(word);
+  const { correct, translates } = randomTranslates(word);
   const { gameWords, page, fetchGameWords } = useGameWords();
 
   const handleChoice = (choice: boolean) => {
@@ -83,40 +84,31 @@ export function GameCard({ word }: GameCardProps) {
     setCurrentWordIndex(currentWordIndex + 1);
   }
 
-  const cardClassName = 
-    result === true && totalScore ? 'background-true start-sprint' :
-    result === false && totalScore ?'background-false start-sprint' : 
-    'start-sprint';
-
   return (
-    <div className={cardClassName}>
-      <p id="score">{totalScore}</p>
-      <p className="success-count">+<span id="success-count">{score}</span> очков за правильный ответ</p>
-      <div className="point-multiplier">
-        <div 
-          className={ successInRope % 4 > 0 ? `circle-${unit}__active circle` : 'circle'}
-        ></div>
-        <div
-          className={ successInRope % 4 > 1 ? `circle-${unit}__active circle` : 'circle'}
-        ></div>
-        <div
-          className={ successInRope % 4 > 2 ? `circle-${unit}__active circle` : 'circle'}
-        ></div>
+    <> 
+      <div className="wrapper">
+        <section className="content">
+            <div className="game-wrapper">
+              <div className="visualisation">
+                <div className="voice-ico__block">
+                  <img src={`${API_BASE_URL}/${word.image}`} alt={word.word} className="hidden word-picture" />
+                </div>
+                <div className="repeat-word">
+                <div className="speaker-ico hidden"><img className="img-voice" src="images/png/up_volume.png" alt="img voice" /></div>
+                <p className="select-offer"></p>
+              </div>
+            </div>
+            <div className="select-container__game">
+              { translates.map((t, index) => <TranslateOption translate={t} index={index} key={`${word.id}_${index}`}/>) }
+            </div>
+            <div className="block-btn__next">
+              <button className="btn-dont-know">Пропустить</button>
+              <button className="btn-next hidden button">Следующее слово</button>
+            </div>
+          </div>
+        </section>
       </div>
-      <div className={`unit-img unit-${unit}-img`}></div>
-      <h3 id="card-word" className="card-word">{word.word}</h3>
-      <h4 id="card-translate" className="card-translate">{translate}</h4>
-      <div className="decision">
-        <button
-          className="decision_button decision_button__false"
-          onClick={() => {handleChoice(false)}}
-        >Неверно</button>
-        <button
-          className="decision_button decision_button__true"
-          onClick={() => {handleChoice(true)}}
-        >Верно</button>
-      </div>
-      { <div className="margin-top-80"><TimerNode secondsTotal={SPRINT_GAME_TIME} /></div> }
-    </div>
+      <CrossBtn />
+    </>
   );
 }
