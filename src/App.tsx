@@ -15,9 +15,11 @@ import { useContext } from "react";
 import { Modal } from "./components/modal/Modal";
 import { Registration } from "./components/modal/Registration";
 import { Auth } from "./components/modal/Auth";
+import { UnitContext } from "./context/UnitContext";
 
 function App() {
   const { modalReg, modalAuth, setModalReg, setModalAuth } = useContext(ModalContext);
+  const { chapter } = useContext(UnitContext);
   return (
     <>
       <Header />
@@ -37,7 +39,7 @@ function App() {
         <Route path="/stats" element={<Stats />}></Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
-      <Footer />
+      { chapter !== 'sprint' && chapter !== 'audio' && <Footer /> }
     </>
   )
 }

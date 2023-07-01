@@ -1,14 +1,15 @@
 import { useContext } from 'react';
-import { UnitButton } from '../units/UnitButton';
+import { UnitButton } from '../common/UnitButton';
 import { SPRINT_START_TIME, UNITS } from '../../config-data';
 import { TimerNode } from './TimerNode';
 import { GameContext } from '../../context/GameContext';
+import '../common/scss/UnitStyles.scss';
 
 export function SprintSelectUnit () {
   const { unit } = useContext(GameContext);
 
   return (
-    <div className="start-sprint">
+    <div className="start-screen">
       <h2>Спринт</h2>
       <p>Правила игры:</p>
       <p>Выберите соответсвует ли перевод предложенному слову</p>

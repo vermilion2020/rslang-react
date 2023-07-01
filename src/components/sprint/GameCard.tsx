@@ -9,13 +9,6 @@ interface GameCardProps {
   word: GameWordData
 }
 
-function randomResult(word: GameWordData) {
-  const correct = Math.round(Math.random());
-  let translate = '';
-  translate = correct ? word.wordTranslate : word.translates[0];
-  return { correct, translate };
-}
-
 export function GameCard({ word }: GameCardProps) {
   const { 
     setCurrentWordIndex,
@@ -29,12 +22,13 @@ export function GameCard({ word }: GameCardProps) {
     totalScore,
     setTotalScore,
     unit,
+    correct,
+    translates,
     audioRef
   } = useContext(GameContext);
   const [score, setScore] = useState(10);
   const [result, setResult] = useState(false);
-  const { correct, translate } = randomResult(word);
-  const { gameWords, page, fetchGameWords } = useGameWords();
+  const { gameWords, page, fetchGameWords, randomResult } = useGameWords();
 
   const handleChoice = (choice: boolean) => {
     const audio = audioRef as React.MutableRefObject<HTMLAudioElement>;
@@ -80,13 +74,15 @@ export function GameCard({ word }: GameCardProps) {
         }
         fetchGameWords(newUnit, newPage);
     }
-    setCurrentWordIndex(currentWordIndex + 1);
+    const index = currentWordIndex + 1;
+    setCurrentWordIndex(index);
+    randomResult(gameWords[index]);
   }
 
   const cardClassName = 
-    result === true && totalScore ? 'background-true start-sprint' :
-    result === false && totalScore ?'background-false start-sprint' : 
-    'start-sprint';
+    result === true && totalScore ? 'background-true play-screen' :
+    result === false && totalScore ?'background-false play-screen' : 
+    'play-screen';
 
   return (
     <div className={cardClassName}>
@@ -105,7 +101,7 @@ export function GameCard({ word }: GameCardProps) {
       </div>
       <div className={`unit-img unit-${unit}-img`}></div>
       <h3 id="card-word" className="card-word">{word.word}</h3>
-      <h4 id="card-translate" className="card-translate">{translate}</h4>
+      <h4 id="card-translate" className="card-translate">{translates[0]}</h4>
       <div className="decision">
         <button
           className="decision_button decision_button__false"

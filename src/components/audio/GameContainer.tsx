@@ -2,17 +2,17 @@ import { useContext } from "react";
 import { GamePhase } from "../../models/Games"
 import { AudioSelectUnit } from "./AudioSelectUnit"
 import { GameContext } from "../../context/GameContext";
-import './AudioChallenge.scss';
+import './Audio.scss';
 import { GameCard } from "./GameCard";
 import { ErrorMessage } from "../ErrorMessage";
 import { Loader } from "../Loader";
-import { GameResults } from "./GameResults";
+import { GameResults } from "../common/GameResults";
 import { useGameWords } from "../../hooks/gameWords";
 
 export function GameContainer () {
   const { loading, error } = useGameWords(4);
   const { phase, currentWordIndex, gameWords, unit } = useContext(GameContext);
-  const containerClass = unit ? `sprint-container unit-${unit}-container` : 'sprint-container';
+  const containerClass = unit ? `game-container audio unit-${unit}-container` : 'game-container audio';
   
   return (
     <div className={containerClass}>

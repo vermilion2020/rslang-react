@@ -12,6 +12,10 @@ interface IGameContext {
   setPage: (page: number) => void,
   currentWordIndex: number,
   setCurrentWordIndex: (currentWordIndex: number) => void,
+  correct: number,
+  setCorrect: (correct: number) => void,
+  translates: string[],
+  setTranslates: (translates: string[]) => void,
   checkedWords: CheckedWord[],
   setCheckedWords: (checkedWords: CheckedWord[]) => void,
   successInRope: number,
@@ -34,6 +38,10 @@ export const GameContext = createContext<IGameContext>({
   setPage: () => {/**/},
   currentWordIndex: 0,
   setCurrentWordIndex: () => {/**/},
+  correct: 0,
+  setCorrect: () => {/**/},
+  translates: [],
+  setTranslates: () => {/**/},
   checkedWords: [],
   setCheckedWords: () => {/**/},
   successInRope: 0,
@@ -51,6 +59,8 @@ export const GameState = ({ children }: { children: React.ReactNode }) => {
   const [phase, setPhase] = useState(GamePhase.selectUnit);
   const [unit, setUnit] = useState(0);
   const [page, setPage] = useState(0);
+  const [correct, setCorrect] = useState(0);
+  const [translates, setTranslates] = useState<string[]>([]);
   const [checkedWords, setCheckedWords] = useState<CheckedWord[]>([]);
   const [successInRope, setSuccessInRope] = useState(0);
   const [maxSuccess, setMaxSuccess] = useState(0);
@@ -67,6 +77,10 @@ export const GameState = ({ children }: { children: React.ReactNode }) => {
         setUnit,
         page,
         setPage,
+        correct, 
+        setCorrect,
+        translates, 
+        setTranslates,
         checkedWords,
         setCheckedWords,
         successInRope,

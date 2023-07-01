@@ -1,20 +1,13 @@
 import { useContext, useState } from "react";
 import { GameContext } from "../../context/GameContext";
 import { GameWordData } from "../../models";
-import { API_BASE_URL, CORRECT_AUDIO, COUNT_AUDIO_OPTIONS, INCORRECT_AUDIO } from "../../config-data";
+import { API_BASE_URL, CORRECT_AUDIO, INCORRECT_AUDIO } from "../../config-data";
 import { useGameWords } from "../../hooks/gameWords";
 import { CrossBtn } from "./CrossBtn";
 import { TranslateOption } from "./TranslateOption";
 
 interface GameCardProps {
   word: GameWordData
-}
-
-function randomTranslates(word: GameWordData) {
-  const correct = Math.floor(Math.random() * COUNT_AUDIO_OPTIONS);
-  const translates = [...word.translates];
-  translates.splice(correct, 0, word.wordTranslate);
-  return { correct, translates };
 }
 
 export function GameCard({ word }: GameCardProps) {
@@ -30,19 +23,29 @@ export function GameCard({ word }: GameCardProps) {
     totalScore,
     setTotalScore,
     unit,
+    translates,
+    correct,
     audioRef
   } = useContext(GameContext);
   const [score, setScore] = useState(10);
-  const [result, setResult] = useState(false);
-  const { correct, translates } = randomTranslates(word);
-  const { gameWords, page, fetchGameWords } = useGameWords();
+  const [selected, setSelected] = useState(false);
+  const [choice, setChoice] = useState(0); 
+  const { gameWords, page, fetchGameWords, randomTranslates } = useGameWords(4);
 
-  const handleChoice = (choice: boolean) => {
+  const playAudio = () => {
     const audio = audioRef as React.MutableRefObject<HTMLAudioElement>;
-    audio.current.src = choice === !!correct ?
+    audio.current.src = `${API_BASE_URL}/${word.audio}`;
+    audio.current.play();
+  }
+
+  const handleChoice = (index: number) => {
+    const audio = audioRef as React.MutableRefObject<HTMLAudioElement>;
+    audio.current.src = index === correct ?
       `${API_BASE_URL}/${CORRECT_AUDIO}` :
       `${API_BASE_URL}/${INCORRECT_AUDIO}`;
     audio.current.play();
+    setSelected(true);
+    setChoice(index);
 
     const checkedWord = {
       wordId: word.id,
@@ -50,11 +53,10 @@ export function GameCard({ word }: GameCardProps) {
       wordTranslate: word.wordTranslate,
       transcription: word.transcription,
       audio: word.audio,
-      result: choice === !!correct
+      result: index === correct
     };
 
-    if (choice === !!correct) {
-      setResult(true);
+    if (index === correct) {
       setSuccessInRope(successInRope + 1);
       setTotalScore(totalScore + score);
       setScore(Math.ceil((successInRope + 2) / 4) * 10 || 10);
@@ -63,47 +65,66 @@ export function GameCard({ word }: GameCardProps) {
       }
     } else {
       setScore(10);
-      setResult(false);
       setSuccessInRope(0);
     }
 
     setCheckedWords([...checkedWords, checkedWord]);
+  }
+
+  const handleNext = () => {
+    setSelected(false);
+    setChoice(10);
+    const index = currentWordIndex + 1;
+    setCurrentWordIndex(index);
+    randomTranslates(gameWords[index]);
     if (currentWordIndex === gameWords.length - 3) {
-        let newPage = page;
-        let newUnit = unit;
-        if (page > 0 && unit > 0) {
-          newPage = page - 1;
-        } else if (unit > 0) {
-          newPage = 29;
-          newUnit = unit - 1;
-        } else {
-          return;
-        }
-        fetchGameWords(newUnit, newPage);
+      let newPage = page;
+      let newUnit = unit;
+      if (page > 0 && unit > 0) {
+        newPage = page - 1;
+      } else if (unit > 0) {
+        newPage = 29;
+        newUnit = unit - 1;
+      } else {
+        return;
+      }
+      fetchGameWords(newUnit, newPage);
     }
-    setCurrentWordIndex(currentWordIndex + 1);
   }
 
   return (
     <> 
-      <div className="wrapper">
+      <div className="play-screen audio-card">
         <section className="content">
             <div className="game-wrapper">
               <div className="visualisation">
-                <div className="voice-ico__block">
-                  <img src={`${API_BASE_URL}/${word.image}`} alt={word.word} className="hidden word-picture" />
+                <div className="voice-ico__block" onClick={playAudio}>
+                { selected && 
+                  <img src={`${API_BASE_URL}/${word.image}`} alt={word.word} className="word-picture" /> }
                 </div>
                 <div className="repeat-word">
-                <div className="speaker-ico hidden"><img className="img-voice" src="images/png/up_volume.png" alt="img voice" /></div>
-                <p className="select-offer"></p>
+                { selected && 
+                  <div className="speaker-ico" onClick={playAudio}>
+                    <img className="img-voice" src="images/png/up_volume.png" alt="img voice" />
+                  </div> }
+                { selected && <p className="select-offer">{word.word}</p> }
               </div>
             </div>
             <div className="select-container__game">
-              { translates.map((t, index) => <TranslateOption translate={t} index={index} key={`${word.id}_${index}`}/>) }
+              { translates.map((t, index) =>
+                <TranslateOption
+                  translate={t}
+                  index={index}
+                  key={`${word.id}_${index}`}
+                  selected={selected}
+                  choice={choice}
+                  correct={correct}
+                  handleChoice={handleChoice}
+                />) }
             </div>
             <div className="block-btn__next">
-              <button className="btn-dont-know">Пропустить</button>
-              <button className="btn-next hidden button">Следующее слово</button>
+              { !selected && <button className="btn-dont-know" onClick={() => {handleChoice(10)}}>Пропустить</button> }
+              { selected && <button className="btn-next" onClick={handleNext}>Следующее слово</button> }
             </div>
           </div>
         </section>

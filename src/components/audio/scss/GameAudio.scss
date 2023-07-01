@@ -13,6 +13,25 @@ $svgs-path: 'icons/';
   margin-top: 1rem;
 }
 
+.close-audio__game {
+  height: 30px;
+  width: 30px;
+  justify-self: end;
+  margin-right: 1rem;
+  cursor: pointer;
+  
+  .close-audio__gamepage {
+    text-decoration: none;
+
+    .close-crose__white {
+      background-image: url('#{$icons-path}close-black.png');
+      width: 20px;
+      height: 20px;
+      background-size: cover;
+    }
+  }
+}
+
 .progress {
   margin-top: 1rem;
 }
@@ -80,6 +99,19 @@ $svgs-path: 'icons/';
     justify-content: space-around;
     align-items: center;
   }
+}
+
+.audio-card {
+  width: 55vw;
+  max-width: 800px;
+  margin-top: 10vh;
+  display: flex;
+  flex-direction: column;
+  border: 17px solid #E9E9E9;
+  background: #FFFFFF;
+  border-radius: 3rem;
+  padding: 0.8rem;
+  max-height: 600px;
 }
 
 .select-offer {
@@ -160,8 +192,9 @@ $svgs-path: 'icons/';
   border: solid 2px $iconColorStudied;
   cursor: pointer;
   font-family: $rusFont;
-  font-size: 1.1rem;
+  font-size: 1rem;
   background-color: $bgTColorWhite;
+  color: $bgTColorBlack;
 }
 
 .btn-dont-know:hover {

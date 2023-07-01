@@ -1,0 +1,28 @@
+@import '../../assets/base-styles.scss';
+
+.game-container {
+  width: 100%;
+  height: 100%;
+  min-height: calc(100vh - 130px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: $bgTColorGrey;
+
+  h2 {
+    font-family: $rusFont;
+    font-weight: 500;
+    font-size: 2.5rem;
+    margin: 0;
+  }
+
+  p {
+    margin: 1rem 0;
+  }
+
+  .select-label {
+    margin-top: 2rem;
+  }
+  
+}
+

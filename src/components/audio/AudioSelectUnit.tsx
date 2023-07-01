@@ -1,6 +1,5 @@
 import { useContext } from 'react';
-import './AudioChallenge.scss';
-import { UnitButton } from '../units/UnitButton';
+import { UnitButton } from '../common/UnitButton';
 import { GameContext } from '../../context/GameContext';
 import { UNITS } from '../../config-data';
 import { GamePhase } from '../../models';

@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { GameContext } from "../../context/GameContext";
 import { ResultLine } from "./ResultLine";
 import { GamePhase } from "../../models/Games";
+import './scss/GameResults.scss';
 
 export function GameResults() {
   const { 

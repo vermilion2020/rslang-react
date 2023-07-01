@@ -3,16 +3,17 @@ import { GamePhase } from "../../models/Games"
 import { SprintSelectUnit } from "./SprintSelectUnit"
 import { GameContext } from "../../context/GameContext";
 import './Sprint.scss';
+import '../common/GameCommon.scss';
 import { GameCard } from "./GameCard";
 import { ErrorMessage } from "../ErrorMessage";
 import { Loader } from "../Loader";
-import { GameResults } from "./GameResults";
+import { GameResults } from "../common/GameResults";
 import { useGameWords } from "../../hooks/gameWords";
 
 export function GameContainer () {
   const { loading, error } = useGameWords();
   const { phase, currentWordIndex, gameWords, unit } = useContext(GameContext);
-  const containerClass = unit ? `sprint-container unit-${unit}-container` : 'sprint-container';
+  const containerClass = unit ? `game-container unit-${unit}-container` : 'game-container';
   
   return (
     <div className={containerClass}>
