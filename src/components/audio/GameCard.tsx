@@ -1,10 +1,11 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GameContext } from "../../context/GameContext";
-import { GameWordData } from "../../models";
-import { API_BASE_URL, CORRECT_AUDIO, INCORRECT_AUDIO } from "../../config-data";
+import { GamePhase, GameWordData } from "../../models";
+import { API_BASE_URL, AUDIO_COUNT_ATTEMPTS, CORRECT_AUDIO, INCORRECT_AUDIO, SKIP_OPTION } from "../../config-data";
 import { useGameWords } from "../../hooks/gameWords";
 import { CrossBtn } from "./CrossBtn";
 import { TranslateOption } from "./TranslateOption";
+import { ProgressBar } from "./ProgressBar";
 
 interface GameCardProps {
   word: GameWordData
@@ -20,32 +21,42 @@ export function GameCard({ word }: GameCardProps) {
     maxSuccess,
     successInRope,
     currentWordIndex,
+    gameWords,
     totalScore,
     setTotalScore,
     unit,
+    page,
+    setPhase,
     translates,
     correct,
     audioRef
   } = useContext(GameContext);
+  const audio = audioRef as React.MutableRefObject<HTMLAudioElement>;
   const [score, setScore] = useState(10);
   const [selected, setSelected] = useState(false);
-  const [choice, setChoice] = useState(0); 
-  const { gameWords, page, fetchGameWords, randomTranslates } = useGameWords(4);
+  const [choice, setChoice] = useState(0);
+  const { fetchGameWords, randomTranslates} = useGameWords(unit, page, 4);
 
   const playAudio = () => {
-    const audio = audioRef as React.MutableRefObject<HTMLAudioElement>;
     audio.current.src = `${API_BASE_URL}/${word.audio}`;
     audio.current.play();
   }
 
+  useEffect(() => {
+    if (!selected) {
+      playAudio();
+    }
+  }, [selected]);
+
   const handleChoice = (index: number) => {
-    const audio = audioRef as React.MutableRefObject<HTMLAudioElement>;
     audio.current.src = index === correct ?
       `${API_BASE_URL}/${CORRECT_AUDIO}` :
       `${API_BASE_URL}/${INCORRECT_AUDIO}`;
-    audio.current.play();
     setSelected(true);
     setChoice(index);
+    if (index !== SKIP_OPTION) {
+      audio.current.play();
+    }
 
     const checkedWord = {
       wordId: word.id,
@@ -69,11 +80,14 @@ export function GameCard({ word }: GameCardProps) {
     }
 
     setCheckedWords([...checkedWords, checkedWord]);
+    if ( currentWordIndex >= AUDIO_COUNT_ATTEMPTS - 1) {
+      setPhase(GamePhase.results);
+    }
   }
 
   const handleNext = () => {
     setSelected(false);
-    setChoice(10);
+    setChoice(SKIP_OPTION);
     const index = currentWordIndex + 1;
     setCurrentWordIndex(index);
     randomTranslates(gameWords[index]);
@@ -93,7 +107,8 @@ export function GameCard({ word }: GameCardProps) {
   }
 
   return (
-    <> 
+    <>
+      <ProgressBar />
       <div className="play-screen audio-card">
         <section className="content">
             <div className="game-wrapper">

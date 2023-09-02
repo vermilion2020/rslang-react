@@ -10,8 +10,8 @@ import { GameResults } from "../common/GameResults";
 import { useGameWords } from "../../hooks/gameWords";
 
 export function GameContainer () {
-  const { loading, error } = useGameWords(4);
-  const { phase, currentWordIndex, gameWords, unit } = useContext(GameContext);
+  const { phase, currentWordIndex, gameWords, unit, page } = useContext(GameContext);
+  const { loading, error } = useGameWords(unit, page, 4);
   const containerClass = unit ? `game-container audio unit-${unit}-container` : 'game-container audio';
   
   return (

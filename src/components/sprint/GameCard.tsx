@@ -22,13 +22,14 @@ export function GameCard({ word }: GameCardProps) {
     totalScore,
     setTotalScore,
     unit,
+    page,
     correct,
     translates,
     audioRef
   } = useContext(GameContext);
   const [score, setScore] = useState(10);
   const [result, setResult] = useState(false);
-  const { gameWords, page, fetchGameWords, randomResult } = useGameWords();
+  const { gameWords, fetchGameWords, randomResult } = useGameWords(unit, page);
 
   const handleChoice = (choice: boolean) => {
     const audio = audioRef as React.MutableRefObject<HTMLAudioElement>;

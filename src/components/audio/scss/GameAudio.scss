@@ -67,6 +67,10 @@ $svgs-path: 'icons/';
   display: flex;
   justify-content: center;
   align-items: center;
+
+  .inside-progress {
+    z-index: 10;
+  }
 }
 .progress-circular::after {
   position: absolute;

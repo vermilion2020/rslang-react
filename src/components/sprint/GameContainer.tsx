@@ -11,7 +11,7 @@ import { GameResults } from "../common/GameResults";
 import { useGameWords } from "../../hooks/gameWords";
 
 export function GameContainer () {
-  const { loading, error } = useGameWords();
+  const { loading, error } = useGameWords(0, 0);
   const { phase, currentWordIndex, gameWords, unit } = useContext(GameContext);
   const containerClass = unit ? `game-container unit-${unit}-container` : 'game-container';
   

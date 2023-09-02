@@ -20,9 +20,9 @@ export function Main() {
     </div>
       <div className="cover-img">
         <div className="img-block">
-          <img className="icon-mane-gr" src="icons/mane-gr.svg" alt="title-img" />
-          <img className="icon-mane-adapt" src="icons/mane-adapt.svg" alt="title-img" />
-          <img className="icon-mane-mobile" src="icons/mane-mobile.svg" alt="title-img" />
+          <img className="icon-mane-gr" src="./icons/mane-gr.svg" alt="title-img" />
+          <img className="icon-mane-adapt" src="./icons/mane-adapt.svg" alt="title-img" />
+          <img className="icon-mane-mobile" src="./icons/mane-mobile.svg" alt="title-img" />
         </div>
       </div>
     </section>
@@ -119,13 +119,13 @@ export function Main() {
     <section className="sec-decor">
       <div className="wrapper-sec-decor">
         <div className="decor-1">
-          <img className="icon-dec" src="icons/decor-1.svg" alt="decor"/>
+          <img className="icon-dec" src="./icons/decor-1.svg" alt="decor"/>
         </div>
         <div className="decor-2">
-          <img className="icon-dec" src="icons/decor-2.svg" alt="decor"/>
+          <img className="icon-dec" src="./icons/decor-2.svg" alt="decor"/>
         </div>
         <div className="decor-3">
-          <img className="icon-dec" src="icons/decor-3.svg" alt="decor"/>
+          <img className="icon-dec" src="./icons/decor-3.svg" alt="decor"/>
         </div>
       </div>
     </section>

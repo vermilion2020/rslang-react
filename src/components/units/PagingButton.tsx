@@ -18,7 +18,7 @@ export function PagingButton({ page }: PagingButtonProps) {
         className={`button-pag ${page === currentPage && 'current-page'}`}
         onClick={() => handlePageSelect(page)}
       >
-        {page}
+        {page + 1}
       </button>
       <div className='icon-super'></div>
     </div>

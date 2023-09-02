@@ -19,7 +19,6 @@ export function Header() {
     {path: 'sprint', name: 'Спринт'},
     {path: 'audio', name: 'Аудиовызов'},
     {path: 'team', name: 'O команде'},
-    {path: 'stats', name: 'Статистика'},
   ];
   return (
     <div className="wrapper white header-wrapper">

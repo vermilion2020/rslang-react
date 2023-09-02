@@ -77,6 +77,19 @@
     background-position: center;
     background-repeat: no-repeat;
   }
+  .paging__double-next {
+    background-image: url('icons/double-arrow.svg');
+    background-size: 20px;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .paging__double-prev {
+    background-image: url('icons/double-arrow.svg');
+    background-size: 20px;
+    transform: rotate(180deg);
+    background-position: center;
+    background-repeat: no-repeat;
+  }
   .paging__prev {
     background-image: url('icons/arrow-left.svg');
     background-size: 20px;
@@ -120,6 +133,25 @@
 .paging .button-pag.paging__prev:hover {
   background-color: $colorBtnHov;
   background-image: url('icons/arrow-left.svg');
+  border: 1px solid $bgTColorBlack;
+  background-size: 20px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.paging .button-pag.paging__double-next:hover {
+  background-color: $colorBtnHov;
+  background-image: url('icons/double-arrow.svg');
+  border: 1px solid $bgTColorBlack;
+  background-size: 20px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.paging .button-pag.paging__double-prev:hover {
+  background-color: $colorBtnHov;
+  background-image: url('icons/double-arrow.svg');
+  transform: rotate(180deg);
   border: 1px solid $bgTColorBlack;
   background-size: 20px;
   background-position: center;
@@ -308,6 +340,8 @@ button[data-unit="7"] {
 
 .paging__prev:disabled,
 .paging__next:disabled,
+.paging__double-next:disabled,
+.paging__double-prev:disabled,
 button[data-unit="7"]:disabled {
   pointer-events: none; 
   background-color: $colorBtnDisab;

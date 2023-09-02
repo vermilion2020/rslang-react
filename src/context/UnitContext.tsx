@@ -13,7 +13,7 @@ interface IUnitContext {
 
 export const UnitContext = createContext<IUnitContext>({
   page: 0,
-  pageNumbers: [1, 2, 3, 4 , 5],
+  pageNumbers: [0, 1, 2, 3, 4],
   unit: 0,
   chapter: 'main',
   setCurrentPage: () => {/**/},
@@ -23,7 +23,7 @@ export const UnitContext = createContext<IUnitContext>({
 
 const getPageNumbers = (page: number) => {
   let firstPage = page - 3;
-  if (firstPage <= MIN_PAGE_NUMBER)
+  if (firstPage < MIN_PAGE_NUMBER)
   {
     firstPage = MIN_PAGE_NUMBER;
   } else if (firstPage + 5 > MAX_PAGE_NUMBER) {
@@ -31,7 +31,7 @@ const getPageNumbers = (page: number) => {
   }
   return Array
     .from(Array(COUNT_PAGES).keys())
-    .map((num) => num + firstPage + 1);
+    .map((num) => num + firstPage);
 }
 
 export const UnitState = ({ children }: { children: React.ReactNode }) => {

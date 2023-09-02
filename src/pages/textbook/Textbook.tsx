@@ -6,7 +6,6 @@ import { Cards } from '../../components/textBookCards/Cards';
 import { Paging } from '../../components/units/Paging';
 
 export function Textbook() {
-
   return (
     <ContentContainer title="Учебник">
       <Units />

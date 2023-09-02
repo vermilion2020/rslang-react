@@ -18,8 +18,9 @@ export function LoginBtn() {
     { !loggedIn && <div className="logged-out">
       <button className="button" id="log-in" onClick={openAuthModal}>Войти</button>
     </div> }
-    { loggedIn && <div className="logged-out">
-    <div className="user-name" title={userName}>{userName}</div>
+    { loggedIn && 
+    <div className="logged-in">
+      <div className="user-name" title={userName}>{userName}</div>
       <button className="button" id="log-out" onClick={logout}>Выход</button>
     </div> }
     </>

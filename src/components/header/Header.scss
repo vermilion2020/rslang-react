@@ -118,6 +118,7 @@ h1 {
   .logged-out,
   .logged-in {
     padding-right: 1rem;
+    display: flex;
   }
 
   .user-name {

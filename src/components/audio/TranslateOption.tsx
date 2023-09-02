@@ -1,6 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
-import { GameWordData } from "../../models";
-
 interface TranslateOptionProps {
   translate: string,
   index: number,

@@ -15,9 +15,14 @@ export function Paging() {
   return (
     <div className="wrapper-paging">
       <div className="paging">
+        <button 
+          className='paging__double-prev button-pag'
+          disabled={currentPage <= MIN_PAGE_NUMBER ? true : false}
+          onClick={() => setCurrentPage(0)}
+        ></button>
         <button
           className='paging__prev button-pag'
-          disabled={currentPage <= MIN_PAGE_NUMBER + 1 ? true : false}
+          disabled={currentPage <= MIN_PAGE_NUMBER ? true : false}
           onClick={() => setCurrentPage(currentPage - 1)}
         ></button>
         {
@@ -27,6 +32,11 @@ export function Paging() {
           className='paging__next button-pag'
           disabled={currentPage >= MAX_PAGE_NUMBER ? true : false}
           onClick={() => setCurrentPage(currentPage + 1)}
+        ></button>
+        <button 
+          className='paging__double-next button-pag'
+          disabled={currentPage >= MAX_PAGE_NUMBER ? true : false}
+          onClick={() => setCurrentPage(29)}
         ></button>
       </div>
       <Link to={`/${btnLink}`} onClick={() => setChapter(btnLink)}>

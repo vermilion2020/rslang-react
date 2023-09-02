@@ -1,24 +1,26 @@
-import { useWords } from "../../hooks/words";
+import { useContext } from 'react';
+import { UnitContext } from "../../context/UnitContext";
+import { useGetWordsQuery } from "../../store/words.api";
 import { ErrorMessage } from "../ErrorMessage";
 import { Loader } from "../Loader";
 import { Card } from "./Card";
 
 export function Cards() {
-  const { words, loading, error } = useWords();
+  const { unit, page } = useContext(UnitContext);
+  const { isLoading, isError, error, data } = useGetWordsQuery({group: unit, page: page});
   return (
     <>
       <div className="main-page">
-        { loading && <Loader /> }
-        { error && <ErrorMessage error={error} /> }
+        { isLoading && <Loader /> }
+        { isError && <ErrorMessage error={'error' in error ? error.error : ''} /> }
         {
-          !loading && !error && 
+          !isLoading && !isError && 
           <div className="cards-container">
             {
-              words.map(word => <Card key={word.id} wordData={word} />)
+              data?.map(word => <Card key={word.id} wordData={word} />)
             }
           </div>
         }
-        
       </div>
     </>
 

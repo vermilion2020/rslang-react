@@ -1,4 +1,4 @@
-import { AxiosError, AxiosResponse } from  'axios';
+import { AxiosError } from  'axios';
 import { useContext, useEffect, useState } from 'react';
 import axios from './axios-config';
 import { AutenticationData, RefreshTokenResponse, RegistrationData, SignInResponse } from '../models/Auth';

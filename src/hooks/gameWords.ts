@@ -6,12 +6,20 @@ import { GameContext } from '../context/GameContext';
 import { COUNT_AUDIO_OPTIONS } from '../config-data';
 import { UnitContext } from '../context/UnitContext';
 
-export function useGameWords(countWords=1) {
-  const { currentWordIndex, setPhase, gameWords, setGameWords, unit, page, setCorrect, setTranslates, translates } = useContext(GameContext);
+export function useGameWords(unit: number, page: number, countWords=1) {
+  const { currentWordIndex, setPhase, gameWords, setGameWords, setCorrect, setTranslates, translates } = useContext(GameContext);
   const { chapter } = useContext(UnitContext);
   
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  if (!unit) {
+    unit = 0;
+  }
+
+  if (!page) {
+    page = 0;
+  }
 
   async function fetchGameWords(group: number, page: number, count = countWords) {
     try {
@@ -57,7 +65,7 @@ export function useGameWords(countWords=1) {
     if (currentWordIndex && gameWords[currentWordIndex] === undefined) {
       setPhase(GamePhase.results);
     }
-  }, []);
+  }, [unit, page]);
 
   return { loading, error, gameWords, fetchGameWords, page, randomTranslates, randomResult };
 }

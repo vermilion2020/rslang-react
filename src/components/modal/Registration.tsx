@@ -2,7 +2,6 @@ import { ChangeEvent, useContext, useState } from "react";
 import { ModalContext } from "../../context/ModalContext";
 import { useAuth } from "../../hooks/auth";
 import { ErrorMessage } from "../ErrorMessage";
-import { AuthContext } from "../../context/AuthContext";
 import { EMAIL_REGEXP, MIN_NAME_LENGTH, MIN_PASSWORD_LENGTH } from "../../config-data";
 
 export function Registration() {
